@@ -1,0 +1,67 @@
+<mxfile host="app.diagrams.net" modified="2023-08-20T12:00:00" agent="Mozilla/5.0" version="21.6.5" type="device">
+  <diagram name="Page-1" id="UxCFJ7xFTkE3kbQ0XHcW">
+    <mxGraphModel dx="1426" dy="794" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        
+        <!-- Main Components -->
+        <mxCell id="data" value="Data Files" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;collapsible=1;" vertex="1" parent="1">
+          <mxGeometry x="120" y="40" width="160" height="116" as="geometry" />
+        </mxCell>
+        <mxCell id="data1" value="training_points.m" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;rotatable=0;part=1;" vertex="1" parent="data">
+          <mxGeometry y="26" width="160" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="data2" value="testing_points.m" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;rotatable=0;part=1;" vertex="1" parent="data">
+          <mxGeometry y="56" width="160" height="30" as="geometry" />
+        </mxCell>
+
+        <!-- Data Flow -->
+        <mxCell id="parse" value="parse_data_file()&#10;- Read MATLAB-style array&#10;- Convert mV→V&#10;- Normalize values" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="320" y="60" width="160" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="edge1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="data" target="parse">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Symbolic Regressor -->
+        <mxCell id="regressor" value="SymbolicRegressor&#10;- Population: Vec&lt;Expr&gt;&#10;- Inputs/Outputs&#10;- Adaptive parameters" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;collapsible=1;" vertex="1" parent="1">
+          <mxGeometry x="120" y="200" width="180" height="200" as="geometry" />
+        </mxCell>
+        <mxCell id="regressor1" value="new()&#10;- Initialize population&#10;- 30% physics-based" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;rotatable=0;part=1;" vertex="1" parent="regressor">
+          <mxGeometry y="26" width="180" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="regressor2" value="evolve()&#10;- Tournament selection&#10;- Adaptive mutation&#10;- Population sizing" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;rotatable=0;part=1;" vertex="1" parent="regressor">
+          <mxGeometry y="66" width="180" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="regressor3" value="fitness()&#10;= ERROR_WEIGHT×RMSE +&#10;PHYSICS_WEIGHT×Violations" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;rotatable=0;part=1;" vertex="1" parent="regressor">
+          <mxGeometry y="106" width="180" height="60" as="geometry" />
+        </mxCell>
+
+        <!-- Expression Structure -->
+        <mxCell id="expr" value="Expr Enum&#10;- Math operations tree&#10;- Variables/Constants&#10;- Dimensional analysis" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="320" y="200" width="160" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="edge2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="parse" target="regressor">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Evolution Loop -->
+        <mxCell id="loop" value="Evolution Loop&#10;(500 generations max)&#10;1. Evolve population&#10;2. Calculate fitness&#10;3. Adapt population size&#10;4. Early stopping check" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="120" y="440" width="180" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="edge3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="regressor" target="loop">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Output -->
+        <mxCell id="output" value="Output&#10;- Best symbolic expression&#10;- Training/Test metrics&#10;- Execution statistics" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="320" y="440" width="160" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="edge4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="loop" target="output">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
